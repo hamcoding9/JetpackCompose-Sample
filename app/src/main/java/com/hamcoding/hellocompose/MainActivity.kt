@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,6 +28,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
@@ -43,7 +45,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloComposeTheme {
-                surfaceExample()
+                BoxExample()
             }
         }
     }
@@ -52,7 +54,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun ComposePreview() {
         HelloComposeTheme {
-            surfaceExample()
+            BoxExample()
         }
     }
 
@@ -122,7 +124,7 @@ class MainActivity : ComponentActivity() {
 
     /** 04. Surface */
     @Composable
-    fun surfaceExample() {
+    fun SurfaceExample() {
         Surface(
             modifier = Modifier.padding(5.dp),
             shadowElevation = 10.dp,
@@ -134,6 +136,29 @@ class MainActivity : ComponentActivity() {
                 fontSize = 15.sp,
                 modifier = Modifier.padding(8.dp)
             )
+        }
+    }
+
+    /** 05. Box */
+    @Composable
+    fun BoxExample() {
+        Box(
+            modifier = Modifier.size(100.dp)
+        ) {
+            Text(text = "Hello", modifier = Modifier.align(Alignment.BottomEnd))
+            Text(
+                text = "Jetpack",
+                color = Color.Blue,
+                modifier = Modifier.align(Alignment.TopEnd)
+            )
+            Box(
+                modifier = Modifier
+                    .size(20.dp)
+                    .background(Color.Cyan)
+                    .align(Alignment.CenterStart)
+            ) {
+                Text(text = "y", modifier = Modifier.align(Alignment.Center))
+            }
         }
     }
 }
