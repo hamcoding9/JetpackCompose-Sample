@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloComposeTheme {
-                ModifierExample()
+                surfaceExample()
             }
         }
     }
@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun ComposePreview() {
         HelloComposeTheme {
-            ModifierExample()
+            surfaceExample()
         }
     }
 
@@ -116,6 +116,23 @@ class MainActivity : ComponentActivity() {
             Text(
                 "Search",
                 modifier = Modifier.offset(y = 10.dp)
+            )
+        }
+    }
+
+    /** 04. Surface */
+    @Composable
+    fun surfaceExample() {
+        Surface(
+            modifier = Modifier.padding(5.dp),
+            shadowElevation = 10.dp,
+            shape = CircleShape,
+            color = MaterialTheme.colorScheme.onError
+        ) {
+            Text(
+                text = "Hello Android!",
+                fontSize = 15.sp,
+                modifier = Modifier.padding(8.dp)
             )
         }
     }
