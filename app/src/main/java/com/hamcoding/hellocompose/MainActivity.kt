@@ -6,14 +6,19 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -38,9 +43,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloComposeTheme {
-                ButtonExample(onButtonClicked = {
-                    Toast.makeText(this, "Send Clicked.", Toast.LENGTH_SHORT).show()
-                })
+                ModifierExample()
             }
         }
     }
@@ -49,7 +52,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun ComposePreview() {
         HelloComposeTheme {
-            ButtonExample(onButtonClicked = {})
+            ModifierExample()
         }
     }
 
@@ -86,6 +89,34 @@ class MainActivity : ComponentActivity() {
             )
             Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
             Text(text = "Send")
+        }
+    }
+
+    /** 03. Modifier */
+    @Composable
+    fun ModifierExample() {
+        Button(
+            colors = ButtonDefaults.buttonColors(
+                contentColor = Color.Cyan,
+            ),
+            onClick = {},
+            modifier = Modifier
+                .size(width = 200.dp, height = 300.dp)
+                .padding(10.dp),
+            shape = RoundedCornerShape(20.dp),
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Search,
+                contentDescription = null,
+                modifier = Modifier.background(Color.Blue)
+            )
+            Spacer(
+                modifier = Modifier.size(ButtonDefaults.IconSpacing)
+            )
+            Text(
+                "Search",
+                modifier = Modifier.offset(y = 10.dp)
+            )
         }
     }
 }
