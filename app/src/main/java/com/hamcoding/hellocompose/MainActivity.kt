@@ -7,8 +7,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -19,6 +21,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Button
@@ -45,7 +48,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloComposeTheme {
-                BoxExample()
+                RowExample()
             }
         }
     }
@@ -54,7 +57,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun ComposePreview() {
         HelloComposeTheme {
-            BoxExample()
+            RowExample()
         }
     }
 
@@ -159,6 +162,29 @@ class MainActivity : ComponentActivity() {
             ) {
                 Text(text = "y", modifier = Modifier.align(Alignment.Center))
             }
+        }
+    }
+
+    /** 06. Row */
+    @Composable
+    fun RowExample() {
+        Row(
+            modifier = Modifier
+                .height(40.dp)
+                .width(200.dp),
+            horizontalArrangement = Arrangement.SpaceAround,
+        ) {
+            Text(
+                text = "첫 번째!",
+                modifier = Modifier.align(Alignment.Top),
+                textAlign = TextAlign.Center
+            )
+            Icon(
+                imageVector = Icons.Filled.Add,
+                contentDescription = "추가",
+                modifier = Modifier.align(Alignment.CenterVertically)
+            )
+            Text(text = "세 번째!", modifier = Modifier.align(Alignment.Bottom))
         }
     }
 }
