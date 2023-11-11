@@ -9,6 +9,8 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +20,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -48,7 +51,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloComposeTheme {
-                RowExample()
+                Outer()
             }
         }
     }
@@ -57,7 +60,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun ComposePreview() {
         HelloComposeTheme {
-            RowExample()
+            Outer()
         }
     }
 
@@ -185,6 +188,51 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
             Text(text = "세 번째!", modifier = Modifier.align(Alignment.Bottom))
+        }
+    }
+
+    /** 07. Column */
+    @Composable
+    fun ColumnExample() {
+        Column(
+            modifier = Modifier.size(100.dp),
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.End
+        ) {
+            Text(
+                text = "첫 번째!"
+            )
+            Text(
+                text = "두 번째!"
+            )
+            Text(
+                text = "세 번째!"
+            )
+        }
+    }
+
+    /** 08. BoxWithConstraints */
+    @Composable
+    fun Outer() {
+        Column {
+            Inner(
+                modifier = Modifier
+                    .widthIn(min = 100.dp, max = 350.dp)
+                    .height(150.dp)
+            )
+        }
+    }
+
+    @Composable
+    private fun Inner(modifier: Modifier = Modifier) {
+        BoxWithConstraints(modifier) {
+            if (maxWidth > 200.dp) {
+                Text(
+                    text = "여기 꽤 길군요!",
+                    modifier = Modifier.align(Alignment.BottomEnd)
+                )
+            }
+            Text("minW: $minWidth maxW: $maxWidth")
         }
     }
 }
