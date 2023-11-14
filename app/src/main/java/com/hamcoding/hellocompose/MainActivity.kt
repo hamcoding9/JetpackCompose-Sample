@@ -1,13 +1,12 @@
 package com.hamcoding.hellocompose
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -15,8 +14,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -34,11 +31,16 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,7 +48,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -55,7 +56,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import coil.compose.rememberImagePainter
 import com.hamcoding.hellocompose.ui.theme.HelloComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -63,7 +63,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloComposeTheme {
-                CardExample(cardData)
+                CheckboxExample()
             }
         }
     }
@@ -72,7 +72,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun ComposePreview() {
         HelloComposeTheme {
-            CardExample(cardData)
+            CheckboxExample()
         }
     }
 
@@ -266,7 +266,8 @@ class MainActivity : ComponentActivity() {
     /** 10. Network Image */
     @Composable
     private fun NetworkImageExample() {
-        val uri = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/USA_Antelope-Canyon.jpg/1200px-USA_Antelope-Canyon.jpg"
+        val uri =
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/USA_Antelope-Canyon.jpg/1200px-USA_Antelope-Canyon.jpg"
         Column {
             AsyncImage(
                 model = uri,
@@ -316,6 +317,35 @@ class MainActivity : ComponentActivity() {
                     Text(text = card.description)
                 }
             }
+        }
+    }
+
+    /** 12. Check Box */
+    @Composable
+    private fun CheckboxExample() {
+        // delegated properties
+        var checked by remember { mutableStateOf(false) }
+        // destruction
+        val (getter, setter) = remember { mutableStateOf(false) }
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Checkbox(
+                checked = checked,
+                onCheckedChange = {
+                    checked = !checked
+                }
+            )
+            Checkbox(
+                checked = getter,
+                onCheckedChange = setter
+            )
+            Text(
+                text = "프로그래머입니까?",
+                modifier = Modifier.clickable {
+                    setter(!getter)
+                }
+            )
         }
     }
 }
