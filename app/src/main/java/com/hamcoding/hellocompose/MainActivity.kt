@@ -32,10 +32,13 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -63,7 +66,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloComposeTheme {
-                CheckboxExample()
+                TextFieldExample()
             }
         }
     }
@@ -72,7 +75,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun ComposePreview() {
         HelloComposeTheme {
-            CheckboxExample()
+            TextFieldExample()
         }
     }
 
@@ -346,6 +349,32 @@ class MainActivity : ComponentActivity() {
                     setter(!getter)
                 }
             )
+        }
+    }
+
+    /** 13. Text Field */
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    private fun TextFieldExample() {
+        var name by remember { mutableStateOf("Tom") }
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            TextField(
+                value = name,
+                label = {
+                    Text("이름")
+                },
+                onValueChange = { name = it })
+            Spacer(modifier = Modifier.size(8.dp))
+            OutlinedTextField(
+                value = name,
+                label = {
+                    Text("이름")
+                },
+                onValueChange = { name = it })
+            Spacer(modifier = Modifier.size(8.dp))
+            Text(text = "Hello $name")
         }
     }
 }
