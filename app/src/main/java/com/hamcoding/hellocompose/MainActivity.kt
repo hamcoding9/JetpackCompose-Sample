@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -39,6 +40,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -71,7 +73,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloComposeTheme {
-                SlotEx()
+                ScaffoldEx()
             }
         }
     }
@@ -80,7 +82,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun ComposePreview() {
         HelloComposeTheme {
-            SlotEx()
+            ScaffoldEx()
         }
     }
 
@@ -455,6 +457,34 @@ class MainActivity : ComponentActivity() {
                 checked2 = !checked2
             }) {
                 Text(text = "뿡")
+            }
+        }
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun ScaffoldEx() {
+        Scaffold(topBar = {
+            TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Image(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "뒤로 가기"
+                        )
+                    }
+                },
+                title = {
+                    Text(text = "Scaffold App")
+                }
+            )
+        }) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it)
+            ) {
+                Text("반가워요")
             }
         }
     }
